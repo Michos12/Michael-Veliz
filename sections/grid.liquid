@@ -17,7 +17,7 @@
                                  alt="{{ product.title }}"
                                 width="600" height="600">
                         {% else %}
-                            <img src="{{ 'no-image.png' | asset_url }}" width="600" height="600" alt="No image available">
+                            <img src="{{ "no-image.png" | asset_url }}" width="600" height="600" alt="No image available">
                         {% endif %}
                         {% comment %} Create the popup container to select the variant and add it to the cart {% endcomment %}
                         <div class="popUp-container">
