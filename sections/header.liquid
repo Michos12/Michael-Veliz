@@ -1,20 +1,20 @@
 <div class="banner">
     <div class="banner-header">
         <div class="header-shopName">
-            {{ section.settings.shopName }}
+            <h1>{{ section.settings.shopName }}</h1>
         </div>
         <div class="header-banner"><
-            {{ section.settings.banner }}
+            <h2>{{ section.settings.banner }}</h2>
         ></div>
         {% if section.settings.buttonLink != blank %}
             <a href ="{{ section.settings.buttonLink }}" class="header-button-link">
                 <div class="header-button-text">
-                    {{ section.settings.buttonText }}    
+                    <p>{{ section.settings.buttonText }}</p>    
                 </div>
             </a>
         {%  else  %}
             <div class="header-button-text">
-                {{ section.settings.buttonText }}
+                <p>{{ section.settings.buttonText }}</p>
             </div>
         {% endif %}
     </div>
@@ -33,7 +33,7 @@
                 {% if section.settings.imageButtonLink != blank %}
                     <a href="{{ section.settings.imageButtonLink }}" class="banner-button-link">
                         <div class="banner-button-text">
-                            {{ section.settings.imageButtonText }}
+                            <p>{{ section.settings.imageButtonText }}</p>
                         </div>
                     </a>
                 {% else %}
