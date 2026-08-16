@@ -1,0 +1,18 @@
+{
+    "type": "header",
+    "name": "Header",
+    "sections":{
+        "header":{
+            "type":"header",
+            "settings":{
+                "shopName": "TISO VISSION",
+                "banner":"Find the perfect gift for your loved ones",
+                "buttonText":"Choose Gift",
+                "buttonLink":""
+            }
+        }
+    },
+    "oder":[
+        "header"
+    ]
+}
