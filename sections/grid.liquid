@@ -1,21 +1,141 @@
+{% comment %} We define the grid container and then the title and the contents {% endcomment %}
 <div class="grid-container">
     <div class="grid-title">
         {{ section.settings.gridTitle }}
     </div>
     <div class="grid-content">
+        {% comment %} If the has blocks (products) then we display them {% endcomment %}
         {% if section.blocks.size > 0 %}
             {% for block in section.blocks %}
+                {% comment %} product is the current product in the loop {% endcomment %}
+                {% assign product = block.settings.product %}
                 <div class="grid-item">
-                    <h3>{{ block.settings.productHeader }}</h3>
+                    <div class="imageWrapper">
+                        {% comment %} Display the product image if it exists, if not display a placeholder {% endcomment %}
+                        {% if product.featured_image != blank %}
+                            <img src="{{ product.featured_image | image_url: width:600 }}"
+                                 alt="{{ product.title }}"
+                                width="600" height="600">
+                        {% else %}
+                            <img src="{{ 'no-image.png' | asset_url }}" width="600" height="600" alt="No image available">
+                        {% endif %}
+                        {% comment %} Create the popup container to select the variant and add it to the cart {% endcomment %}
+                        <div class="popUp-container">
+                            <div 
+                                onclick="showForm({{ product.id }})"
+                                id="{{ product.id }}-popUp"    
+                            >+
+                            {% comment %} On the menu they can view the description, price and the name of the product
+                             also they can decide the color and size {% endcomment %}
+                                <div class="popUp-content">
+                                    <div class="productInfo">
+                                        <div class="product-imageWrapper">
+                                            <img src="{{ product.featured_image | image_url: width:600 }}"
+                                                 alt="{{ product.title }}"
+                                                width="600" height="600">
+                                        </div>
+                                        <div class="Productdetails">
+                                            <div class="product-title">
+                                                {{ product.title }}
+                                            </div>
+                                            <div class="product-price">
+                                                {{ product.price | money }}
+                                            </div>
+                                            <div class="product-description">
+                                                {{ product.description }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="variant-options">
+                                        <div class="variant-colors">
+                                            {% comment %} Display the available color options for the product {% endcomment %}
+                                             {% assign colorOption = product.options_by_name["Color"]%}
+                                             <button onclick="selectVariant({{ colorOption.selected_value }})" class="button-variant-option">
+                                                {% comment %} We use the current value to define the background color {% endcomment %}
+                                                <div class="variant-color-style" style="background-color: {{ colorOption.selected_value }}"></div>
+                                                {% for colorValues in colorOption.values %}
+                                                    <div class="variant-color-name">
+                                                        <p class="variant-color-text">{{ colorOption.selected_value }}</p>
+                                                    </div>
+                                                {% endfor %}
+                                             </button>
+                                        </div>
+                                        <div class="variant-size">
+                                            {% comment %} Display the available size options for the product {% endcomment %}
+                                            {% assign sizeOption = product.options_by_name["Size"] %}
+                                            <select class="variant-size-text" id="variant-size-value">
+                                                <p class="variant-size-text">{{ sizeOption.selected_values }}</p>
+                                                {% for values in sizeOption.values %}
+                                                    <option value={{ values }} class="variant-size-text"></option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% comment %} Display the "Add to Cart" button {% endcomment %}
+                                        <div class="addToCart" onclick="addToCart({{ product.variants }})">
+                                            Add to Cart
+                                            <span class="arrow-icon">🛒</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
             <div class="grid-item">
-                <h3>No products added</h3>  
+                <p class="grid-text">No products added</p>  
             </div>    
         {% endif %}
     </div>
 </div>
+
+<script>
+    let variantValue = {
+        color: "",
+        size: "",
+        id: 0
+    }
+    document.getElementById("variant-size-value").addEventListener("change", () => {
+        variantValue.size = document.getElementById("variant-size-value").value
+    })
+
+    function addToCart(productVariants){
+        let variant = productVariants.find((variants) => {
+            [variants.option1, variants.option2]
+            .filter({
+                (v) => v !== null &&
+                variantValue.color == variants.option1 &&
+                variantValue.size == variants.option 2
+            })
+        })
+        return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ id: variant.id, quantity: 1 })
+        }).then(function (res) {
+            return res.json().then(function (data) {
+                if (!res.ok) throw data;
+                document.dispatchEvent(new CustomEvent('cart:updated'));
+                return data;
+        });
+    }
+
+    function selectVariant(variantValue) {
+        variantValues.color = variantValue;
+    }
+
+    function showForm(productId){
+        var popup = document.getElementById(productId + '-popUp');
+        if (popup.classList.contains('showPopUp')) {
+            popup.classList.remove('showPopUp');
+            popup.classList.add("hidePopUp")
+        } else {
+            popup.classList.add('showPopUp');
+            popup.classList.remove('hidePopUp');     
+        }
+    }
+</script>
 
 {% schema %}
     {
