@@ -106,7 +106,7 @@
             .filter({
                 (v) => v !== null &&
                 variantValue.color == variants.option1 &&
-                variantValue.size == variants.option 2
+                variantValue.size == variants.option2
             })
         })
         return fetch('/cart/add.js', {
@@ -122,7 +122,7 @@
     }
 
     function selectVariant(variantValue) {
-        variantValues.color = variantValue;
+        variantValue.color = variantValue;
     }
 
     function showForm(productId){
@@ -166,6 +166,11 @@
             ]
         }
     ],
-    "max_blocks": 9
-    }
+    "max_blocks": 9,
+    "presets": [
+        {
+            "name": "Grid"
+        }
+    ]    
+}
 {% endschema %}
