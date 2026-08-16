@@ -1,0 +1,51 @@
+<div class="grid-container">
+    <div class="grid-title">
+        {{ section.settings.gridTitle }}
+    </div>
+    <div class="grid-content">
+        {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+                <div class="grid-item">
+                    <h3>{{ block.settings.productHeader }}</h3>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="grid-item">
+                <h3>No products added</h3>  
+            </div>    
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+    {
+    "name": "Grid",
+    "settings": 
+    [
+        {
+            "type": "header",
+            "content": "Grid"
+        },
+        {
+            "type": "text",
+            "id": "gridTitle",
+            "label": "Grid Title",
+            "default": "Grid Title"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product",
+            "name": "Product",
+            "settings":[
+                {
+                    "type": "product",
+                    "id": "productHeader",
+                    "label": "Product Header"
+                }
+            ]
+        }
+    ],
+    "max_blocks": 9
+    }
+{% endschema %}
