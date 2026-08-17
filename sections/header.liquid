@@ -1,26 +1,18 @@
-{% comment %}
-  Sección: Hero Banner + Header (estilo "Gift Guide")
-  - Barra superior: nombre de la tienda editable (menú hamburguesa decorativo)
-  - Imagen de fondo editable (image_picker)
-  - Desktop (>=750px): título + descripción + botón superpuestos abajo-izquierda sobre la imagen
-  - Mobile (<750px): título + descripción en flujo normal ARRIBA de la imagen,
-    botón centrado y superpuesto sobre la imagen
-  - Botón con efecto hover: franja amarilla que nace desde la izquierda y cubre todo el botón
-  - Franja inferior tipo marquee (texto en movimiento continuo)
-{% endcomment %}
-
 {% assign marquee_text = section.settings.marquee_text %}
 
 <div class="hero-banner-{{ section.id }}">
 
   <div class="hero-banner__topbar">
-    <button type="button" class="hero-banner__menu-icon" aria-label="Abrir menú">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <span class="hero-banner__shop-name">{{ section.settings.shop_name }}</span>
-    <span class="hero-banner__topbar-spacer" aria-hidden="true"></span>
+      <span class="hero-banner__shop-name">{{ section.settings.shop_name }}</span>
+      
+      <span class="hero-banner__topbar-spacer" aria-hidden="true">{{ section.settings.shop_banner }}</span>
+
+      <a href="{{ section.settings.buttonShop_link }}" class="hero-banner__button">
+          <span class="hero-banner__button-label">
+            {{ section.settings.button_label_topbar }}
+            <span aria-hidden="true">&rarr;</span>
+          </span>
+        </a>
   </div>
 
   <div class="hero-banner__text">
@@ -59,20 +51,7 @@
 
   {% if marquee_text != blank %}
     <div class="hero-banner__marquee">
-      <div class="hero-banner__marquee-track">
-        <div class="hero-banner__marquee-group">
-          <span>{{ marquee_text }}</span>
-          <span>{{ marquee_text }}</span>
-          <span>{{ marquee_text }}</span>
-          <span>{{ marquee_text }}</span>
-        </div>
-        <div class="hero-banner__marquee-group" aria-hidden="true">
-          <span>{{ marquee_text }}</span>
-          <span>{{ marquee_text }}</span>
-          <span>{{ marquee_text }}</span>
-          <span>{{ marquee_text }}</span>
-        </div>
-      </div>
+        <span>{{ marquee_text }}</span>
     </div>
   {% endif %}
 
@@ -194,7 +173,7 @@
   }
 
   /* Franja amarilla que nace desde la izquierda y cubre el botón en hover */
-  .hero-banner-{{ section.id }} .hero-banner__button::before {
+  .hero-banner-{{ section.id }} .hero-banner__button::before{
     content: "";
     position: absolute;
     inset: 0;
@@ -224,7 +203,6 @@
     transform: scaleX(0);
   }
 
-  /* ---------- Franja inferior tipo marquee ---------- */
   .hero-banner-{{ section.id }} .hero-banner__marquee {
     background: #000;
     color: #fff;
@@ -232,44 +210,6 @@
     white-space: nowrap;
     padding: 10px 0;
   }
-
-  .hero-banner-{{ section.id }} .hero-banner__marquee-track {
-    display: flex;
-    width: max-content;
-    animation: hero-marquee-{{ section.id }} 18s linear infinite;
-  }
-
-  .hero-banner-{{ section.id }} .hero-banner__marquee-group {
-    display: flex;
-    flex-shrink: 0;
-  }
-
-  .hero-banner-{{ section.id }} .hero-banner__marquee-group span {
-    padding: 0 30px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  @keyframes hero-marquee-{{ section.id }} {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-banner-{{ section.id }} .hero-banner__marquee-track,
-    .hero-banner-{{ section.id }} .hero-banner__button::before {
-      transition: none;
-      animation: none;
-    }
-  }
-
-  /* =========================================================
-     DESKTOP (>=750px): el texto pasa a ser overlay abajo-izq
-     sobre la imagen, como en el diseño original
-     ========================================================= */
   @media screen and (min-width: 750px) {
     .hero-banner-{{ section.id }} .hero-banner__topbar {
       padding: 20px 40px;
@@ -317,13 +257,41 @@
   "settings": [
     {
       "type": "header",
-      "content": "Nombre de la tienda"
+      "content": "Name of the shop"
     },
     {
       "type": "text",
       "id": "shop_name",
-      "label": "Texto del nombre de la tienda",
+      "label": "Text of the name of the shop",
       "default": "TISSO VISON"
+    },
+      {
+      "type": "header",
+      "content": "Banner of the shop"
+    },
+    {
+      "type": "text",
+      "id": "shop_banner",
+      "label": "Text of the description of the shop",
+      "default": "Found the perfect gift for your loved ones"
+    },
+    {  "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "url",
+      "id": "button_Shoplink",
+      "label": "URL of the button on the top bar",
+    },
+    {
+       "type": "header",
+      "content": "Buton"
+    },
+    {
+      "type": "text",
+      "id": "button_label_topbar",
+      "label": "Text of the top bar button",
+      "default": "Choose Gift"
     },
     {
       "type": "header",
