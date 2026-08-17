@@ -29,22 +29,22 @@
       {% if section.settings.description != blank %}
         <p class="hero-banner__description">{{ section.settings.description }}</p>
       {% endif %}
-  </div>
-    {% if section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="hero-banner__button">
-        <span class="hero-banner__button-label">
-          {{ section.settings.button_label }}
-          <span aria-hidden="true">&rarr;</span>
+      {% if section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="hero-banner__button">
+          <span class="hero-banner__button-label">
+            {{ section.settings.button_label }}
+            <span aria-hidden="true">&rarr;</span>
+          </span>
+        </a>
+      {% else %}
+        <span class="hero-banner__button hero-banner__button--disabled">
+          <span class="hero-banner__button-label">
+            {{ section.settings.button_label }}
+            <span aria-hidden="true">&rarr;</span>
+          </span>
         </span>
-      </a>
-    {% else %}
-      <span class="hero-banner__button hero-banner__button--disabled">
-        <span class="hero-banner__button-label">
-          {{ section.settings.button_label }}
-          <span aria-hidden="true">&rarr;</span>
-        </span>
-      </span>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
 
   {% if marquee_text != blank %}
