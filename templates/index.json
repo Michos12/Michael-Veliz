@@ -27,6 +27,73 @@
     },
     "product_grid": {
       "type": "grid",
+      "blocks": {
+        "product_T8khWU": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_RVpzxf": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_r9YG4Y": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_CJHc8H": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_bJmTpV": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_UN4QVK": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_cbfjNV": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_XHJyUf": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        },
+        "product_cxVH4y": {
+          "type": "product",
+          "settings": {
+            "productHeader": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_T8khWU",
+        "product_RVpzxf",
+        "product_r9YG4Y",
+        "product_CJHc8H",
+        "product_bJmTpV",
+        "product_UN4QVK",
+        "product_cbfjNV",
+        "product_XHJyUf",
+        "product_cxVH4y"
+      ],
       "settings": {
         "gridTitle": "Featured products"
       }
