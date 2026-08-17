@@ -7,7 +7,7 @@
       
       <span class="hero-banner__topbar-spacer" aria-hidden="true">{{ section.settings.shop_banner }}</span>
 
-      <a href="{{ section.settings.buttonShop_link }}" class="hero-banner__button">
+      <a href="{{ section.settings.buttonShop_link }}" class="hero-banner__button_topBar">
           <span class="hero-banner__button-label">
             {{ section.settings.button_label_topbar }}
             <span aria-hidden="true">&rarr;</span>
@@ -71,26 +71,10 @@
     padding: 16px 20px;
   }
 
-  .hero-banner-{{ section.id }} .hero-banner__menu-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-    width: 22px;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .hero-banner-{{ section.id }} .hero-banner__menu-icon span {
-    display: block;
-    height: 2px;
-    background: #111;
-  }
-
   .hero-banner-{{ section.id }} .hero-banner__shop-name {
     flex: 1;
+    position: absolute;
+    left:0%;
     text-align: center;
     font-weight: 700;
     letter-spacing: 1px;
@@ -101,6 +85,13 @@
 
   .hero-banner-{{ section.id }} .hero-banner__topbar-spacer {
     width: 22px;
+    position: absolute;
+    left:50%;
+  }
+  .hero-banner-{{ section.id }} .hero-banner__button_topBar {
+    width: 22px;
+    position: absolute;
+    left:50%;
   }
 
   /* ---------- Texto: mobile-first = flujo normal arriba de la imagen ---------- */
