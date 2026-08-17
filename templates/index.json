@@ -6,16 +6,34 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "product_grid":{
-      "type":"grid",
-      "settings":{
-        "gridTitle":"Featured products"
+    "header_7NCmE3": {
+      "type": "header",
+      "name": "Hero Banner",
+      "settings": {
+        "shop_name": "TISSO VISON",
+        "shop_banner": "Found the perfect gift for your loved ones",
+        "button_Shoplink": "",
+        "button_label_topbar": "Choose Gift",
+        "background_image": "shopify://shop_images/striped-blouse-fashion_925x_1a1ff947-7950-4779-91a0-6583c619c0e5.jpg",
+        "heading": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "button_label": "Shop now",
+        "button_link": "",
+        "marquee_text": "Sustainable, ethically made clothes in sizes XXS to 6XL"
+      }
+    },
+    "product_grid": {
+      "type": "grid",
+      "settings": {
+        "gridTitle": "Featured products"
       }
     }
   },
   "order": [
+    "header_7NCmE3",
     "product_grid"
   ]
 }
