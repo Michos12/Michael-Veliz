@@ -1,214 +1,385 @@
-<div class="banner">
-    <div class="banner-header">
-        <div class="header-shopName">
-            <h1>{{ section.settings.shopName }}</h1>
+{% comment %}
+  Sección: Hero Banner + Header (estilo "Gift Guide")
+  - Barra superior: nombre de la tienda editable (menú hamburguesa decorativo)
+  - Imagen de fondo editable (image_picker)
+  - Desktop (>=750px): título + descripción + botón superpuestos abajo-izquierda sobre la imagen
+  - Mobile (<750px): título + descripción en flujo normal ARRIBA de la imagen,
+    botón centrado y superpuesto sobre la imagen
+  - Botón con efecto hover: franja amarilla que nace desde la izquierda y cubre todo el botón
+  - Franja inferior tipo marquee (texto en movimiento continuo)
+{% endcomment %}
+
+{% assign marquee_text = section.settings.marquee_text %}
+
+<div class="hero-banner-{{ section.id }}">
+
+  <div class="hero-banner__topbar">
+    <button type="button" class="hero-banner__menu-icon" aria-label="Abrir menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <span class="hero-banner__shop-name">{{ section.settings.shop_name }}</span>
+    <span class="hero-banner__topbar-spacer" aria-hidden="true"></span>
+  </div>
+
+  <div class="hero-banner__text">
+    <h1 class="hero-banner__heading">{{ section.settings.heading }}</h1>
+    {% if section.settings.description != blank %}
+      <p class="hero-banner__description">{{ section.settings.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="hero-banner__media">
+    {% if section.settings.background_image %}
+      <img
+        class="hero-banner__image"
+        src="{{ section.settings.background_image | image_url: width: 1600 }}"
+        alt="{{ section.settings.background_image.alt | escape }}"
+        loading="lazy"
+      >
+    {% endif %}
+
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="hero-banner__button">
+        <span class="hero-banner__button-label">
+          {{ section.settings.button_label }}
+          <span aria-hidden="true">&rarr;</span>
+        </span>
+      </a>
+    {% else %}
+      <span class="hero-banner__button hero-banner__button--disabled">
+        <span class="hero-banner__button-label">
+          {{ section.settings.button_label }}
+          <span aria-hidden="true">&rarr;</span>
+        </span>
+      </span>
+    {% endif %}
+  </div>
+
+  {% if marquee_text != blank %}
+    <div class="hero-banner__marquee">
+      <div class="hero-banner__marquee-track">
+        <div class="hero-banner__marquee-group">
+          <span>{{ marquee_text }}</span>
+          <span>{{ marquee_text }}</span>
+          <span>{{ marquee_text }}</span>
+          <span>{{ marquee_text }}</span>
         </div>
-        <div class="header-banner"><
-            <h2>{{ section.settings.banner }}</h2>
-        ></div>
-        {% if section.settings.buttonLink != blank %}
-            <a href ="{{ section.settings.buttonLink }}" class="header-button-link">
-                <div class="header-button-text">
-                    <p>{{ section.settings.buttonText }}</p>    
-                </div>
-                <span class="header-button-arrow"></span>
-            </a>
-        {%  else  %}
-            <div class="header-button-text">
-                <p>{{ section.settings.buttonText }}</p>
-            </div>
-        {% endif %}
-    </div>
-    <div class="banner-container-image">
-        <div class="banner-image">
-            <img
-                src="{{ section.settings.imageUrl | asset_url }}"
-                alt="{{ section.settings.imageAlt }}"
-                width="600"
-                height="600">
+        <div class="hero-banner__marquee-group" aria-hidden="true">
+          <span>{{ marquee_text }}</span>
+          <span>{{ marquee_text }}</span>
+          <span>{{ marquee_text }}</span>
+          <span>{{ marquee_text }}</span>
         </div>
-        <div class="banner-text-container">
-            <div class="banner-text-title">
-                <p>{{ section.settings.imageTitle }}</p>
-            </div>
-            <div class="banner-text">
-                <p>{{ section.settings.imageDescription }}</p>
-            </div>
-            <div class="banner-button-container">
-                {% if section.settings.imageButtonLink != blank %}
-                    <a href="{{ section.settings.imageButtonLink }}" class="banner-button-link">
-                        <div class="banner-button-text">
-                            <p>{{ section.settings.imageButtonText }}</p>
-                        </div>
-                    </a>
-                {% else %}
-                    <div class="banner-button-text">
-                        {{ section.settings.imageButtonText }}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="banner-phrase">
-        {{ section.settings.bannerPhrase }}
-    </div>
+  {% endif %}
+
 </div>
 
-{% stylesheet %}
-    .banner {
-        .banner-header{
-            background-color: rgba(245, 245, 245);
-            display: flex;
-            gap:2hv;
-            align-items: center;
-            padding: 0.5vh 0.5vh;
-            justify-content: space-between;
-            .header-shopname{
-                font-family: Verdana, Geneva, Tahoma, sans-serif;
-                border: 1px solid #000;
-                font-weight: bold;
-                text-transform: uppercase;
-                white-space: nowrap; 
-            };
-            .header-banner{
-                font-family: Helvetica, sans-serif;
-                flex: 1;
-                text-align: center;
-                padding: 2vh 3.5vh;
-                font-size: medium;
-                margin: 0 4vh;
-            };
-            .header-button-link{
-                background-color: rgba(255, 245, 68);
-                display: absolute;
-                left: 50%;
-                bottom: 5vh;
-                gap: 2vw;
-                padding: 2vh 4vh;
-                font-weight: bolder;
-                font-size: larger;
-                color: #fff;
-                border-radius: 999px;
-                padding: 1vh 1vh;
-                .header-button-text{
-                    font-family: Helvetica, sans-serif;
+{% style %}
+  .hero-banner-{{ section.id }} {
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-                };
-                .header-button-arrow{
+  /* ---------- Barra superior: nombre de tienda ---------- */
+  .hero-banner-{{ section.id }} .hero-banner__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+  }
 
-                }
-            }
-        };
-        .banner-container-image{
-            display:flex;
-            .banner-image{
-                img{
-                    object-fit: cover;
-                    width: 100%;
-                    height: 100%;
-                    inset: 0;
-                    position: absolute;
-                    display: block
-                }
-            };
-            .banner-text-container{
-                display:grid;
-                font-family: Helvetica, sans-serif;
-                .banner-text-title{
-                    gap: 0.5hv 0 0.5hv 0;
-                };
-                .banner-text{
+  .hero-banner-{{ section.id }} .hero-banner__menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 22px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
 
-                };
-                .banner-button-container{
-                    background-color: black;
-                    &::hover{
-                        animation: forwards;
-                        background-color: rgba(245, 245, 245);
-                    }
-                }
+  .hero-banner-{{ section.id }} .hero-banner__menu-icon span {
+    display: block;
+    height: 2px;
+    background: #111;
+  }
 
-            }
-        }
+  .hero-banner-{{ section.id }} .hero-banner__shop-name {
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: #111;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__topbar-spacer {
+    width: 22px;
+  }
+
+  /* ---------- Texto: mobile-first = flujo normal arriba de la imagen ---------- */
+  .hero-banner-{{ section.id }} .hero-banner__text {
+    padding: 4px 20px 20px;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 7vw, 32px);
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #111;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+  }
+
+  /* ---------- Imagen ---------- */
+  .hero-banner-{{ section.id }} .hero-banner__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #f5f4f0;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* ---------- Botón: mobile = centrado sobre la imagen ---------- */
+  .hero-banner-{{ section.id }} .hero-banner__button {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    overflow: hidden;
+    isolation: isolate;
+    background: #000;
+    color: #fff;
+    border-radius: 999px;
+    padding: 13px 22px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.35s ease;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__button-label {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Franja amarilla que nace desde la izquierda y cubre el botón en hover */
+  .hero-banner-{{ section.id }} .hero-banner__button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #f5e400;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.35s ease;
+    z-index: 1;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__button:hover,
+  .hero-banner-{{ section.id }} .hero-banner__button:focus-visible {
+    color: #000;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__button:hover::before,
+  .hero-banner-{{ section.id }} .hero-banner__button:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__button--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__button--disabled:hover::before {
+    transform: scaleX(0);
+  }
+
+  /* ---------- Franja inferior tipo marquee ---------- */
+  .hero-banner-{{ section.id }} .hero-banner__marquee {
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__marquee-track {
+    display: flex;
+    width: max-content;
+    animation: hero-marquee-{{ section.id }} 18s linear infinite;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__marquee-group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .hero-banner-{{ section.id }} .hero-banner__marquee-group span {
+    padding: 0 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @keyframes hero-marquee-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-banner-{{ section.id }} .hero-banner__marquee-track,
+    .hero-banner-{{ section.id }} .hero-banner__button::before {
+      transition: none;
+      animation: none;
+    }
+  }
+
+  /* =========================================================
+     DESKTOP (>=750px): el texto pasa a ser overlay abajo-izq
+     sobre la imagen, como en el diseño original
+     ========================================================= */
+  @media screen and (min-width: 750px) {
+    .hero-banner-{{ section.id }} .hero-banner__topbar {
+      padding: 20px 40px;
     }
 
-{% endstylesheet %}
+    .hero-banner-{{ section.id }} .hero-banner__shop-name {
+      text-align: left;
+      flex: none;
+    }
 
+    .hero-banner-{{ section.id }} .hero-banner__media {
+      aspect-ratio: 21 / 9;
+    }
+
+    .hero-banner-{{ section.id }} .hero-banner__text {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+      max-width: 480px;
+      padding: 32px 40px 96px;
+      pointer-events: none;
+    }
+
+    .hero-banner-{{ section.id }} .hero-banner__heading {
+      font-size: clamp(36px, 4vw, 56px);
+    }
+
+    .hero-banner-{{ section.id }} .hero-banner__description {
+      max-width: 340px;
+    }
+
+    .hero-banner-{{ section.id }} .hero-banner__button {
+      left: 40px;
+      bottom: 40px;
+      transform: none;
+      pointer-events: auto;
+    }
+  }
+{% endstyle %}
 
 {% schema %}
 {
-    "name": "Banner",
-    "settings":
-    [
-        {
-            "type": "header",
-            "content": "Shop name"
-        },
-        {
-            "type": "text",
-            "id": "shopName",
-            "label": "Text of the Shop Name",
-            "default": "TISO VISSION"
-        },
-        {
-            "type": "header",
-            "content": "Banner"
-        },
-        {
-            "type": "text",
-            "id": "banner",
-            "label": "Banner Text",
-            "default": "Find the perfect gift for your loved ones"
-        },
-        {
-            "type": "header",
-            "content": "Button"
-        },
-        {
-            "type":"header",
-            "content": "Title"
-        },
-        {
-            "type":"text",
-            "id":"imageTitle",
-            "label":"Text besides image",
-            "default":"The gift guide"
-        },
-        {
-            "type":"header",
-            "content": "Image Url"
-        },
-        {
-            "type":"url",
-            "id":"imageUrl",
-            "label":"Url of the image on the banner",
-        },
-        {
-            "type":"header",
-            "content": "Image description"
-        },
-        {
-            "type":"text",
-            "id":"imageDescription",
-            "label":"Description or details",
-            "default":"Discover joy: Yor ultimate guide Holiday Gift Destinaton.\nExplore our curated selection and find the perfect gift to\ndelight your loved ones this holiday season"
-        },
-        {
-            "type": "url",
-            "id": "buttonLink",
-            "label": "Button Link",
-        },
-        {
-            "type": "text",
-            "id": "buttonText",
-            "label": "Button Text",
-            "default": "Choose Gift"
-        }
-    ],
-    "presets": [
-        {
-            "name": "Banner"
-        }
-    ] 
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Nombre de la tienda"
+    },
+    {
+      "type": "text",
+      "id": "shop_name",
+      "label": "Texto del nombre de la tienda",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Imagen de fondo"
+    },
+    {
+      "type": "header",
+      "content": "Texto principal"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripción",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "header",
+      "content": "Botón"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "header",
+      "content": "Franja inferior"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Texto de la franja inferior",
+      "default": "Sustainable, ethically made clothes in sizes XXS to 6XL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
 }
 {% endschema %}
