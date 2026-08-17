@@ -11,6 +11,7 @@
                 <div class="header-button-text">
                     <p>{{ section.settings.buttonText }}</p>    
                 </div>
+                <span class="header-button-arrow"></span>
             </a>
         {%  else  %}
             <div class="header-button-text">
@@ -20,14 +21,18 @@
     </div>
     <div class="banner-container-image">
         <div class="banner-image">
-
+            <img
+                src="{{ section.settings.imageUrl | asset_url }}"
+                alt="{{ section.settings.imageAlt }}"
+                width="600"
+                height="600">
         </div>
         <div class="banner-text-container">
             <div class="banner-text-title">
-                {{ section.settings.imageTitle }}
+                <p>{{ section.settings.imageTitle }}</p>
             </div>
             <div class="banner-text">
-                {{ section.settings.imageDescription }}
+                <p>{{ section.settings.imageDescription }}</p>
             </div>
             <div class="banner-button-container">
                 {% if section.settings.imageButtonLink != blank %}
@@ -49,7 +54,85 @@
     </div>
 </div>
 
+{% stylesheet %}
+    .banner {
+        .banner-header{
+            background-color: rgba(245, 245, 245);
+            display: flex;
+            gap:2hv;
+            align-items: center;
+            padding: 0.5vh 0.5vh;
+            justify-content: space-between;
+            .header-shopname{
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                border: 1px solid #000;
+                font-weight: bold;
+                text-transform: uppercase;
+                white-space: nowrap; 
+            };
+            .header-banner{
+                font-family: Helvetica, sans-serif;
+                flex: 1;
+                text-align: center;
+                padding: 2vh 3.5vh;
+                font-size: medium;
+                margin: 0 4vh;
+            };
+            .header-button-link{
+                background-color: rgba(255, 245, 68);
+                display: absolute;
+                left: 50%;
+                bottom: 5vh;
+                gap: 2vw;
+                padding: 2vh 4vh;
+                font-weight: bolder;
+                font-size: larger;
+                color: #fff;
+                border-radius: 999px;
+                padding: 1vh 1vh;
+                .header-button-text{
+                    font-family: Helvetica, sans-serif;
 
+                };
+                .header-button-arrow{
+
+                }
+            }
+        };
+        .banner-container-image{
+            display:flex;
+            .banner-image{
+                img{
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                    inset: 0;
+                    position: absolute;
+                    display: block
+                }
+            };
+            .banner-text-container{
+                display:grid;
+                font-family: Helvetica, sans-serif;
+                .banner-text-title{
+                    gap: 0.5hv 0 0.5hv 0;
+                };
+                .banner-text{
+
+                };
+                .banner-button-container{
+                    background-color: black;
+                    &::hover{
+                        animation: forwards;
+                        background-color: rgba(245, 245, 245);
+                    }
+                }
+
+            }
+        }
+    }
+
+{% endstylesheet %}
 
 
 {% schema %}
@@ -80,6 +163,35 @@
         {
             "type": "header",
             "content": "Button"
+        },
+        {
+            "type":"header",
+            "content": "Title"
+        },
+        {
+            "type":"text",
+            "id":"imageTitle",
+            "label":"Text besides image",
+            "default":"The gift guide"
+        },
+        {
+            "type":"header",
+            "content": "Image Url"
+        },
+        {
+            "type":"url",
+            "id":"imageUrl",
+            "label":"Url of the image on the banner",
+        },
+        {
+            "type":"header",
+            "content": "Image description"
+        },
+        {
+            "type":"text",
+            "id":"imageDescription",
+            "label":"Description or details",
+            "default":"Discover joy: Yor ultimate guide Holiday Gift Destinaton.\nExplore our curated selection and find the perfect gift to\ndelight your loved ones this holiday season"
         },
         {
             "type": "url",
