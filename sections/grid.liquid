@@ -128,10 +128,10 @@
         color: "",
         size: "",
         id: 0
-    }
+    };
     document.getElementById("variant-size-value").addEventListener("change", () => {
         variantValue.size = document.getElementById("variant-size-value").value
-    })
+    });
 
     function addToCart(productVariants){
         let variant = productVariants.find((variants) => {
@@ -152,16 +152,16 @@
                 document.dispatchEvent(new CustomEvent('cart:updated'));
                 return data;
         });
-    }
+    };
 
     function selectVariant(variantValue) {
         variantValue.color = variantValue;
-    }
+    };
 
     function showForm(productId){
         let popup = document.getElementById(`${productId}-content`);
         popup.style.display = "block";
-    }
+    };
 </script>
 
 {% schema %}
