@@ -29,7 +29,6 @@
                              also they can decide the color and size {% endcomment %}
                                 <div 
                                     id="{{ product.id }}-content"
-                                    style="display=none"
                                     class="popUp-content">
                                     <div class="productInfo">
                                         <div class="product-imageWrapper">
@@ -128,8 +127,8 @@
     }
 
     function showForm(productId){
-        var popup = document.getElementById(`${productId}-content`);
-        var.classList.toggle("hidden")
+        let popup = document.getElementById(`${productId}-content`);
+        popup.classList.toggle("hidden")
     }
 </script>
 
