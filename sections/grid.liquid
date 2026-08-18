@@ -128,8 +128,7 @@
     function showForm(productId){
         var popup = document.getElementById(productId + '-popUp');
         if (popup.classList.contains('hidden')) {
-            popup.classList.('showPopUp');
-            popup.classList.add("hidden")
+            popup.classList.remove("hidden")
         } else {
             popup.classList.add('showPopUp');
             popup.classList.remove('hidden');     
