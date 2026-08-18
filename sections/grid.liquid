@@ -127,12 +127,12 @@
 
     function showForm(productId){
         var popup = document.getElementById(productId + '-popUp');
-        if (popup.classList.contains('showPopUp')) {
+        if (popup.classList.contains('sh')) {
             popup.classList.remove('showPopUp');
             popup.classList.add("hidePopUp")
         } else {
             popup.classList.add('showPopUp');
-            popup.classList.remove('hidePopUp');     
+            popup.classList.remove('hidden');     
         }
     }
 </script>
