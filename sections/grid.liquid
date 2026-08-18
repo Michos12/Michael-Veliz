@@ -31,46 +31,6 @@
     
 {% endstyle %}
 
-<script>
-    let variantValueGlobal = {
-        color: "",
-        size: "",
-        id: 0
-    };
-    document.getElementById("variant-size-value").addEventListener("change", () => {
-        variantValue.size = document.getElementById("variant-size-value").value
-    });
-
-    function addToCart(productVariants){
-        let variant = productVariants.find((variants) => {
-            return variants.option1 == variantValueGlobal.color && variants.option2 == variantValueGlobal.size;
-        })
-        if(!variant) return;
-        return fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ id: variant.id, quantity: 1 })
-        }).then(function (res) {
-            return res.json().then(function (data) {
-                if (!res.ok) throw data;
-                document.dispatchEvent(new CustomEvent('cart:updated'));
-                return data;
-            });
-        })
-    };
-
-    function selectVariant(variantValue) {
-        variantValueGlobal.color = variantValue;
-    };
-
-    function showForm(productId) {
-        let contentElement = document.getElementById(productId + "-content");
-        if (contentElement) {
-            contentElement.classList.toggle("hidden");
-        }
-    }
-</script>
-
 {% comment %} We define the grid container and then the title and the contents {% endcomment %}
 <div class="grid-container">
     <div class="grid-title">
@@ -164,7 +124,45 @@
     </div>
 </div>
 
+<script>
+    let variantValueGlobal = {
+        color: "",
+        size: "",
+        id: 0
+    };
+    document.getElementById("variant-size-value").addEventListener("change", () => {
+        variantValue.size = document.getElementById("variant-size-value").value
+    });
 
+    function addToCart(productVariants){
+        let variant = productVariants.find((variants) => {
+            return variants.option1 == variantValueGlobal.color && variants.option2 == variantValueGlobal.size;
+        })
+        if(!variant) return;
+        return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ id: variant.id, quantity: 1 })
+        }).then(function (res) {
+            return res.json().then(function (data) {
+                if (!res.ok) throw data;
+                document.dispatchEvent(new CustomEvent('cart:updated'));
+                return data;
+            });
+        })
+    };
+
+    function selectVariant(variantValue) {
+        variantValueGlobal.color = variantValue;
+    };
+
+    function showForm(productId) {
+        let contentElement = document.getElementById(productId + "-content");
+        if (contentElement) {
+            contentElement.classList.toggle("hidden");
+        }
+    }
+</script>
 
 
 {% schema %}
