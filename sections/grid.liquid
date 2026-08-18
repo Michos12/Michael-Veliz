@@ -63,10 +63,12 @@
         variantValueGlobal.color = variantValue;
     };
 
-    function showForm(event){
-        let currentElement = event.target;
-        currentElement.classList.toggle("hidden")
-    };
+    function showForm(productId) {
+        let contentElement = document.getElementById(productId + "-content");
+        if (contentElement) {
+            contentElement.classList.toggle("hidden");
+        }
+    }
 </script>
 
 {% comment %} We define the grid container and then the title and the contents {% endcomment %}
