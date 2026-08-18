@@ -45,7 +45,7 @@
         let variant = productVariants.find((variants) => {
             return variants.option1 == variantValueGlobal.color && variants.option2 == variantValueGlobal.size;
         })
-        if()
+        if(!variant) return;
         return fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
