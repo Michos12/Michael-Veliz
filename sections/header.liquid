@@ -113,7 +113,9 @@
     &:hover,&:focus-visible{
       color: #fff;
     }
-    &:hover::before,&
+    &:hover::before,&:focus-visible::before{
+      transform: scaleX
+    }
   }
 
   /* ---------- Texto: mobile-first = flujo normal arriba de la imagen ---------- */
