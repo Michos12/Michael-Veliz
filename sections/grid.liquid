@@ -55,7 +55,8 @@
                 if (!res.ok) throw data;
                 document.dispatchEvent(new CustomEvent('cart:updated'));
                 return data;
-        });
+            });
+        })
     };
 
     function selectVariant(variantValue) {
