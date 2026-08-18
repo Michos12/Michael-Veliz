@@ -28,7 +28,7 @@
                             </button>   
                             {% comment %} On the menu they can view the description, price and the name of the product
                              also they can decide the color and size {% endcomment %}
-                                <div id="{{ product.id  }}-popUp-content hidden">
+                                <div class="{{ product.id  }}-popUp-content hidden">
                                     <div class="productInfo">
                                         <div class="product-imageWrapper">
                                             <img src="{{ product.featured_image | image_url: width:600 }}"
@@ -161,12 +161,14 @@
                 button{
                     border-radius:900px;
                 }
+
+                font-size: 20px;
+                .popUp-content .hidden{
+                    display:none;
+                }
             }
         }
     }
-    #popUp-content .hidden{
-                    display:none;
-                }
 {% endstyle %}
 
 {% schema %}
