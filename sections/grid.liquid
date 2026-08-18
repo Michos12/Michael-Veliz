@@ -29,7 +29,8 @@
                              also they can decide the color and size {% endcomment %}
                                 <div 
                                     id="{{ product.id }}-content"
-                                    class="popUp-content hidden">
+                                    style="display:none"
+                                    class="popUp-content">
                                     <div class="productInfo">
                                         <div class="product-imageWrapper">
                                             <img src="{{ product.featured_image | image_url: width:600 }}"
