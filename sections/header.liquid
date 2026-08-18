@@ -92,6 +92,8 @@
   .hero-banner-{{ section.id }} .hero-banner__button_topBar {
     position: absolute;
     text-align: right;
+    isolation:isolate;
+    overflow
     padding: 2vh;
     background-color: rgba(255, 245, 69);
     transform: translateX(-50%);
@@ -114,7 +116,7 @@
       color: #fff;
     }
     &:hover::before,&:focus-visible::before{
-      transform: scaleX
+      transform: scaleX(1);
     }
   }
 
