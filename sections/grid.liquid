@@ -43,8 +43,8 @@
             [variants.option1, variants.option2]
             .filter({
                 (v) => v !== null &&
-                variantValue.color == variants.option1 &&
-                variantValue.size == variants.option2
+                variantValueGlobal.color == variants.option1 &&
+                variantValueGlobal.size == variants.option2
             })
         })
         return fetch('/cart/add.js', {
