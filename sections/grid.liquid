@@ -43,7 +43,7 @@
 
     function addToCart(productVariants){
         let variant = productVariants.find((variants) => {
-            [variants.option1, variants.option2]
+            return variants.option1, variants.option2]
             .filter({
                 (v) => v !== null &&
                 variantValueGlobal.color == variants.option1 &&
