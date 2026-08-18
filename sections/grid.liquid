@@ -44,12 +44,8 @@
     function addToCart(productVariants){
         let variant = productVariants.find((variants) => {
             return variants.option1 == variantValueGlobal.color && variants.option2 == variantValueGlobal.size;
-            .filter({
-                (v) => v !== null &&
-                variantValueGlobal.color == variants.option1 &&
-                variantValueGlobal.size == variants.option2
-            })
         })
+        if()
         return fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
