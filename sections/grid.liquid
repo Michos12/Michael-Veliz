@@ -28,6 +28,47 @@
     
 {% endstyle %}
 
+<script>
+    let variantValue = {
+        color: "",
+        size: "",
+        id: 0
+    };
+    document.getElementById("variant-size-value").addEventListener("change", () => {
+        variantValue.size = document.getElementById("variant-size-value").value
+    });
+
+    function addToCart(productVariants){
+        let variant = productVariants.find((variants) => {
+            [variants.option1, variants.option2]
+            .filter({
+                (v) => v !== null &&
+                variantValue.color == variants.option1 &&
+                variantValue.size == variants.option2
+            })
+        })
+        return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ id: variant.id, quantity: 1 })
+        }).then(function (res) {
+            return res.json().then(function (data) {
+                if (!res.ok) throw data;
+                document.dispatchEvent(new CustomEvent('cart:updated'));
+                return data;
+        });
+    };
+
+    function selectVariant(variantValue) {
+        variantValue.color = variantValue;
+    };
+
+    function showForm(productId){
+        let popup = document.getElementById(`${productId}-content`);
+        popup.style.display = "block";
+    };
+</script>
+
 {% comment %} We define the grid container and then the title and the contents {% endcomment %}
 <div class="grid-container">
     <div class="grid-title">
@@ -123,46 +164,7 @@
 </div>
 
 
-<script>
-    let variantValue = {
-        color: "",
-        size: "",
-        id: 0
-    };
-    document.getElementById("variant-size-value").addEventListener("change", () => {
-        variantValue.size = document.getElementById("variant-size-value").value
-    });
 
-    function addToCart(productVariants){
-        let variant = productVariants.find((variants) => {
-            [variants.option1, variants.option2]
-            .filter({
-                (v) => v !== null &&
-                variantValue.color == variants.option1 &&
-                variantValue.size == variants.option2
-            })
-        })
-        return fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ id: variant.id, quantity: 1 })
-        }).then(function (res) {
-            return res.json().then(function (data) {
-                if (!res.ok) throw data;
-                document.dispatchEvent(new CustomEvent('cart:updated'));
-                return data;
-        });
-    };
-
-    function selectVariant(variantValue) {
-        variantValue.color = variantValue;
-    };
-
-    function showForm(productId){
-        let popup = document.getElementById(`${productId}-content`);
-        popup.style.display = "block";
-    };
-</script>
 
 {% schema %}
     {
