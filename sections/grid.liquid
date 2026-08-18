@@ -45,7 +45,7 @@
                 <div class="grid-item">
                     <div class="imageWrapper">
                         {% comment %} Display the product image if it exists, if not display a placeholder {% endcomment %}
-                        {% if product.featured_image != blank %}
+                        {% if product.productHeader != blank %}
                             <img src="{{ product.featured_image | image_url: width:600 }}"
                                  alt="{{ product.title }}"
                                 width="600" height="600">
