@@ -28,7 +28,7 @@
                             </button>   
                             {% comment %} On the menu they can view the description, price and the name of the product
                              also they can decide the color and size {% endcomment %}
-                                <div class="popUp-content hidden">
+                                <div class="{{ product.id  }}-popUp-content hidden">
                                     <div class="productInfo">
                                         <div class="product-imageWrapper">
                                             <img src="{{ product.featured_image | image_url: width:600 }}"
@@ -126,7 +126,7 @@
     }
 
     function showForm(productId){
-        var popup = document.getElementById(productId + '-popUp');
+        var popup = document.getElementById(productId + '-popUp-content');
         if (popup.classList.contains('hidden')) {
             popup.classList.remove("hidden")
         } else {
