@@ -21,11 +21,11 @@
                         {% endif %}
                         {% comment %} Create the popup container to select the variant and add it to the cart {% endcomment %}
                         <div class="popUp-container">
-                            <div 
+                            <button 
                                 onclick="showForm({{ product.id }})"
                                 id="{{ product.id }}-popUp"    
                             >+
-                            </div>
+                            </button>
                             {% comment %} On the menu they can view the description, price and the name of the product
                              also they can decide the color and size {% endcomment %}
                                 <div class="popUp-content hidden">
