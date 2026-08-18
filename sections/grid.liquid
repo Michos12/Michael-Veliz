@@ -46,7 +46,7 @@
                     <div class="imageWrapper">
                         {% comment %} Display the product image if it exists, if not display a placeholder {% endcomment %}
                         {% if product.productHeader != blank %}
-                            <img src="{{ product.featured_image | image_url: width:600 }}"
+                            <img src="{{ product.productHeader | image_url: width:600 }}"
                                  alt="{{ product.title }}"
                                 width="600" height="600">
                         {% else %}
