@@ -127,8 +127,8 @@
 
     function showForm(productId){
         var popup = document.getElementById(productId + '-popUp');
-        if (popup.classList.contains('sh')) {
-            popup.classList.remove('showPopUp');
+        if (popup.classList.contains('hidden')) {
+            popup.classList.('showPopUp');
             popup.classList.add("hidden")
         } else {
             popup.classList.add('showPopUp');
